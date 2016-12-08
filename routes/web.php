@@ -15,7 +15,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('page', 'PageController');
+
+Route::group([
+    'middleware' => 'roles',
+    'roles' => ['Admin', 'Moderator']
+], function() {
+
+    Route::resource('pages', 'PagesController');
+
+});
+
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');

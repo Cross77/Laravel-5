@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Pages;
 use Illuminate\Http\Request;
 
-class PageController extends Controller
+class PagesController extends Controller
 {
     public function __construct()
     {
