@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PagesRequest;
 use App\Pages;
 use Illuminate\Http\Request;
 
@@ -19,10 +20,10 @@ class PagesController extends Controller
      */
     public function index()
     {
-        $pages =  Pages::paginate(10);
+        $pages =  Pages::orderBy('id', 'DESC')->paginate(10);
 
 
-        return view('page.index', compact('pages'));
+        return view('pages.index', compact('pages'));
     }
 
     /**
@@ -32,62 +33,54 @@ class PagesController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  PagesRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PagesRequest $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        Pages::create($request->all());
+        return redirect()->route('pages.index');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Pages $page
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Pages $page)
     {
-        //
+        return view('pages.edit', compact('page'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  PagesRequest  $request
+     * @param  Pages  $page
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PagesRequest $request, Pages $page)
     {
-        //
+        $page->update($request->all());
+        return redirect()->route('pages.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Pages $page
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Pages $page)
     {
-        //
+        $page->delete();
+        return redirect()->route('pages.index');
     }
 }
