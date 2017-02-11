@@ -11,7 +11,7 @@
     @endif
 
     <div class="form-group">
-        {!! Form::label('title', "Title:") !!}
+        {!! Form::label('title', "Tytuł:") !!}
         {!! Form::text('title', null, ['class'=>'form-control']) !!}
     </div>
 
